@@ -31,11 +31,6 @@ int main(int argc, char* arv[]){
 }
 
 void* mymalloc(size_t size){
-  mblock_t* head = mlist.head;
-  head->prev = NULL;
-  if(mlist.head == NULL){
-
-  }
   mblock_t* freeBlock = findFreeBlockOfSize(size);
   splitBlockAtSize(freeBlock, size);
   return freeBlock->payload;
