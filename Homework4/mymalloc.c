@@ -2,7 +2,7 @@
 #define MBLOCK_HEADER_SZ offsetof(mblock_t, payload)
 
 mlist_t mlist;
-
+mlist.head = NULL;
 void* mymalloc(size_t size){
   mblock_t* freeBlock = findFreeBlockOfSize(size);
   splitBlockAtSize(freeBlock, size);
