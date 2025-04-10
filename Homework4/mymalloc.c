@@ -4,6 +4,7 @@
 mlist_t mlist;
 
 int main(int argc, char* arv[]){
+  printf("%p\n", mlist.head);
   void * p1 = mymalloc(10);
   printMemList(mlist.head);
   void * p2 = mymalloc(100);
