@@ -89,7 +89,7 @@ mblock_t* growHeapBySize(size_t size){
     printf("%s", strerror(errno));
     return NULL;
   }
-  mblock_t* temp;
+  mblock_t* temp = (mblock_t*)p;
   temp->next = NULL;
   temp->prev = findLastMemListBlock();
   findLastMemListBlock()->next = temp;
