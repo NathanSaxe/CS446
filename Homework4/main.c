@@ -1,5 +1,4 @@
 #include "mymalloc.c"
-//these repos are connected
 
 int main(int argc, char* arv[]){
     void * p1 = mymalloc(10);

@@ -87,7 +87,7 @@ mblock_t* growHeapBySize(size_t size){
   void* p = sbrk(size + MBLOCK_HEADER_SZ);
   if(p==(void*)-1){
     printf("%s", strerror(errno));
-    exit;
+    return NULL;
   }
   mblock_t* temp;
   temp->next = NULL;
