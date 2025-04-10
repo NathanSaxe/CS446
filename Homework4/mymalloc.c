@@ -84,17 +84,17 @@ void coallesceBlockNext(mblock_t* freedBlock){
 }
 //Increase heap allocation and create a new memory block in the VA Space
 mblock_t* growHeapBySize(size_t size){
-  int sizeNeeded = size + MBLOCK_HEADER_SZ;
-  if(sbrk(sizeNeeded)==(void*)-1){
-    strerror(errno);
-    return;
+  void* p = sbrk(size + MBLOCK_HEADER_SZ);
+  if(p==(void*)-1){
+    printf("%s", strerror(errno));
+    exit;
   }
   mblock_t* temp;
   temp->next = NULL;
   temp->prev = findLastMemListBlock();
   findLastMemListBlock()->next = temp;
   temp->status = 0;
-  temp->payload = NULL;
+  temp->payload = sbrk(0)-size;
   temp->size = 0;
   return temp;
 }
