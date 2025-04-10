@@ -4,7 +4,6 @@
 mlist_t mlist;
 
 int main(int argc, char* arv[]){
-  printf("%p\n", mlist.head);
   void * p1 = mymalloc(10);
   printMemList(mlist.head);
   void * p2 = mymalloc(100);
@@ -112,8 +111,12 @@ void coallesceBlockNext(mblock_t* freedBlock){
 }
 //Increase heap allocation and create a new memory block in the VA Space
 mblock_t* growHeapBySize(size_t size){
-  void* p = sbrk(size + MBLOCK_HEADER_SZ);
   mblock_t* lastNode = findLastMemListBlock();
+  if(lastNode == mlist.head){
+   sbrk(sizeof(mblock_t)); 
+  }
+  void* p = sbrk(size + MBLOCK_HEADER_SZ);
+  
   if(p==(void*)-1){
     printf("%s", strerror(errno));
     return NULL;
