@@ -121,12 +121,15 @@ mblock_t* growHeapBySize(size_t size){
   mblock_t* temp = (mblock_t*)p;
   if(mlist.head == NULL){
     mlist.head = temp;
+    temp->size = 0;
+    temp->next = NULL;
+    temp->status = 0;
+    return temp;
   }
   temp->next = NULL;
   temp->prev = lastNode;
   lastNode->next = temp;
   temp->status = 0;
-  temp->payload = sbrk(0)-size;
   temp->size = 0;
   return temp;
 }
