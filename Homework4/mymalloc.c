@@ -31,12 +31,11 @@ int main(int argc, char* arv[]){
 }
 
 void* mymalloc(size_t size){
-  if(mlist.head == findLastMemListBlock()){
-
+  void* p = sbrk(size);
+  if(p == (void*) -1){
+    strerror(errno);
   }
-  mblock_t* freeBlock = findFreeBlockOfSize(size);
-  splitBlockAtSize(freeBlock, size);
-  return freeBlock->payload;
+  return p;
 }
 
 void myfree(void* ptr){
