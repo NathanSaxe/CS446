@@ -31,6 +31,9 @@ int main(int argc, char* arv[]){
 }
 
 void* mymalloc(size_t size){
+  if(mlist.head == findLastMemListBlock()){
+
+  }
   mblock_t* freeBlock = findFreeBlockOfSize(size);
   splitBlockAtSize(freeBlock, size);
   return freeBlock->payload;
@@ -119,16 +122,11 @@ mblock_t* growHeapBySize(size_t size){
     return NULL;
   }
   mblock_t* temp = (mblock_t*)p;
-  if(mlist.head == NULL){
-    mlist.head = temp;
-    temp->size = 0;
-    temp->next = NULL;
-    temp->status = 0;
-    return temp;
+  if(lastNode){
+    temp->prev = lastNode;
+    lastNode->next = temp;
   }
   temp->next = NULL;
-  temp->prev = lastNode;
-  lastNode->next = temp;
   temp->status = 0;
   temp->size = 0;
   return temp;
